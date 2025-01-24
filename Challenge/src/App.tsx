@@ -19,22 +19,35 @@ function App() {
       pageY: y - 25,
     };
 
+    setRemoved([]);
     setList((prev) => [...prev, newCircle]);
   }
 
   function handleUndo(event) {
     event.stopPropagation();
+    if (list.length === 0) {
+      console.log("Lista vazia");
+      return;
+    }
+    var removedItem = list[list.length - 1];
+    setRemoved((prev) => [...prev, removedItem]);
 
-    var removedItem:Circle = list.slice((-1))
-    
-    setRemoved((prev) => [...prev, removedItem])
-    
-    var newList = list.slice(0, -1)
-    setList(newList)
+    var newList = list.slice(0, -1);
+    setList(newList);
   }
 
-  function handleRedo(event) {
+  function handleRedo(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.stopPropagation();
+    if (removed.length === 0) {
+      console.log("Nada para restaurar");
+      return;
+    }
+
+    var redoneItem = removed[removed.length - 1];
+    setList((prev) => [...prev, redoneItem]);
+    
+    var newRemoved = removed.slice(0, -1);
+    setRemoved(newRemoved);
   }
 
   return (
