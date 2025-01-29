@@ -1,3 +1,5 @@
+import "../styles/Circles.css"
+
 type Circle = {
   pageX: number;
   pageY: number;
