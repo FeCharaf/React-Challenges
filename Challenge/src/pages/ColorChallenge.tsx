@@ -1,36 +1,50 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Colors.css";
 
 function ColorChallenge() {
-  var newColor = "";
-  function Game() {
-    var colorDiv = document.getElementById("ColorDiv");
-    var isWrong = false;
+  const [color, setColor] = useState();
+  const [message, setMessage] = useState("Selecione uma opção");
+  const [answers, setAnswers] = useState([]);
 
-    //   Gera a opção de 0,1 ou 2
-    var option = Math.floor(Math.random() * 3);
-    console.log(option);
+  function getColor() {
+    let color =
+      "#" +
+      Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, "0");
+    return color;
+  }
 
-    if (newColor === "" || !isWrong) {
-      //gera um hexadecimal
-      let hex: string = "#" + Math.floor(Math.random() * 16777215).toString(16);
-      newColor = colorDiv.style = `background-color: ${hex};`;
-      console.log(hex);
+  function checkAnswer(answer: string) {
+    if (answer === color) {
+      setMessage("Correct");
+    } else {
+      console.log(answer);
+      console.log(color);
     }
   }
+
   useEffect(() => {
-    Game();
+    var correctColor = getColor();
+    const answers = [correctColor, getColor(), getColor()];
+    
+    setColor(correctColor);
+    setAnswers(answers)
   }, []);
 
   return (
     <div id="Home">
-      <div className="color" id="ColorDiv"></div>
-      <div className="options">
-        <button id="0">Test</button>
-        <button id="1">Test</button>
-        <button id="2">Test</button>
+      <div className="color" id="ColorDiv" style={{ background: color }}></div>
+      <div className="options" id="options">
+        {answers.map((answer, index) => (
+          <button key={index} onClick={() => checkAnswer(answer)}>
+            {answer}
+          </button>
+        ))}
       </div>
-      <div className="answer">Wrong Answer</div>
+      <div className="answer" id="answer">
+        {message}
+      </div>
     </div>
   );
 }

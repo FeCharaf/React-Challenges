@@ -3,14 +3,14 @@ import "./App.css";
 import CirclesChallenge from "./pages/CirclesChallenge";
 import ColorChallenge from "./pages/ColorChallenge";
 
-type Circle = {
-  pageX: number;
-  pageY: number;
-};
+// type Circle = {
+//   pageX: number;
+//   pageY: number;
+// };
 
 function App() {
-  const [list, setList] = useState<Circle[]>([]);
-  const [removed, setRemoved] = useState<Circle[]>([]);
+  // const [list, setList] = useState<Circle[]>([]);
+  // const [removed, setRemoved] = useState<Circle[]>([]);
   return (
     // <CirclesChallenge
     //   list={list}
